@@ -3,7 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
-      - rm /usr/share/keyrings/corretto-keyring.gpg 
+      - rm -f /usr/share/keyrings/corretto-keyring.gpg 
       - wget -O - https://apt.corretto.aws/corretto.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/corretto-keyring.gpg
       - apt-get update -y
       - apt-get install -y build-essential
