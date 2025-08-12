@@ -1,8 +1,6 @@
 {
-    "name": "codebuild-demo",
+    "name": "docker-node-app",
     "version": "1.0.0",
-    "scripts": {
-      "test": "echo \"Running tests...\" && exit 0"
-    }
+    "main": "index.js"
   }
   

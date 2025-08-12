@@ -1,16 +1,29 @@
 version: 0.2
 
+env:
+  parameter-store:
+    DOCKERHUB_USERNAME: "DOCKERHUB_USERNAME"
+    DOCKERHUB_PASSWORD: "DOCKERHUB_PASSWORD"
+  variables:
+    IMAGE_REPO_NAME: "suryaraj/node-app-aws"
+    AWS_REGION: "us-east-1"
+
 phases:
-  install:
+  pre_build:
     commands:
-      - echo Installing dependencies...
-      - npm install
+      - echo Logging in to Docker Hub...
+      - echo $DOCKERHUB_PASSWORD | docker login -u $DOCKERHUB_USERNAME --password-stdin
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - echo Running tests...
-      - npm test
-      - echo Packaging application...
-      - zip -r app.zip .
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+  post_build:
+    commands:
+      - echo Pushing the Docker image to Docker Hub...
+      - docker push $IMAGE_REPO_NAME:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '[{"name":"nodejs-app","imageUri":"%s"}]' $IMAGE_REPO_NAME:$IMAGE_TAG > imagedefinitions.json
 artifacts:
-  files:
-    - app.zip
+  files: imagedefinitions.json
