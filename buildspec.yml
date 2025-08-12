@@ -3,18 +3,14 @@ version: 0.2
 phases:
   install:
     commands:
-      - rm -f /usr/share/keyrings/corretto-keyring.gpg 
-      - wget -O - https://apt.corretto.aws/corretto.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/corretto-keyring.gpg
-      - apt-get update -y
-      - apt-get install -y build-essential
+      - echo Installing dependencies...
+      - npm install
   build:
     commands:
-      - echo Build started on `date`
-      - echo Compiling the C++ code...
-      - g++ hello.cpp -o hello.out
-  post_build:
-    commands:
-      - echo Build completed on `date`
+      - echo Running tests...
+      - npm test
+      - echo Packaging application...
+      - zip -r app.zip .
 artifacts:
   files:
-    - hello.out
+    - app.zip
