@@ -1,4 +1,4 @@
 #!/bin/bash
 # Cleanup old files before updating
-
-rm -rf /home/ubuntu/awscodebuild/*
+echo "running cleanup.sh"  >> /home/ubuntu/app.log
+rm -rf /home/ubuntu/app/*
