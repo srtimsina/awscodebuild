@@ -2,9 +2,13 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /
+    destination: /awscodebuild
 hooks:
   BeforeInstall:
+    - location: scripts/clean_up.sh
+      timeout: 300
+      runas: root
+  AfterInstall:
     - location: scripts/install_dependencies.sh
       timeout: 300
       runas: root
