@@ -9,8 +9,10 @@ phases:
     commands:
       - echo Running tests...
       - npm test
-      - echo Packaging application...
-      - zip -r app.zip .
+
 artifacts:
   files:
-    - app.zip
+    - appspec.yml
+    - index.js
+    - package.json
+    - scripts/**/*
