@@ -11,7 +11,5 @@ then
   sudo apt-get install -y nodejs
 fi
 
-cd /home/ubuntu/myapp
-
 npm install --production >> /home/ubuntu/app.log 2>&1
 
