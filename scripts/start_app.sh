@@ -1,4 +1,6 @@
 #!/bin/bash
 # Script for starting the app service
 cd /home/ubuntu/app
-node index.js
+
+nohup node index.js >> /home/ubuntu/app.log 2>&1 &
+
