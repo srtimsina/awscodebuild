@@ -2,7 +2,7 @@ const http = require("http");
 const PORT = 3000;
 
 const server = http.createServer((req, res) => {
-  res.end("Hello from AWS EC2, we are deploying with CodeDeploy!");
+  res.end("Hello from AWS EC2, we are deploying with CodeDeploy! App version is v2.0");
 });
 
 server.listen(PORT, "0.0.0.0", () => {
